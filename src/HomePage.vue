@@ -35,7 +35,32 @@
         </v-btn>
       </v-app-bar>
 
-      <v-carousel></v-carousel>
+      <v-carousel 
+        cycle
+        height="400"
+        hide-delimiter-background
+        :show-arrows="false"
+      >
+        <v-carousel-item
+          v-for="(slide, i) in slides"
+          :key="i"
+        >
+          <v-sheet
+            :color="colors[i]"
+            height="100%"
+          >
+            <v-row
+              class="fill-height"
+              align="center"
+              justify="center"
+            >
+              <div class="mainFont">
+                {{ slide }} Slide
+              </div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
 
       <v-footer></v-footer>
 
@@ -50,8 +75,14 @@ export default {
 
     data() {
         return {
-            backgroundColor: "#000000",
-            textColor: "#FFFFFF",
+            colors: [
+              'black',
+              'black',
+            ],
+            slides: [
+              'First',
+              'Second',
+            ],
         };
     },
 };

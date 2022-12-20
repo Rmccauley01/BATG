@@ -61,9 +61,16 @@
       </v-carousel-item>
     </v-carousel>
 
-    <v-container color = "black">
-
-      <v-row color="black"></v-row>
+    <v-container>
+      <v-row v-for="item in dataList" :key="item.id">
+        <v-col>
+        <v-card>
+          <v-img :src="require('../src/assets/product_images/Product_Image_1.jpg')" />
+          <v-card-title>{{ item.name }}</v-card-title>
+          <v-card-subtitle>{{ item.price }}</v-card-subtitle>
+        </v-card>
+      </v-col>
+      </v-row>
     </v-container>
 
     <v-footer></v-footer>
@@ -101,8 +108,17 @@ export default {
       this.dataString = response.data.split("Sheet1")[1]
       this.dataString = this.dataString.substring(2,this.dataString.indexOf('>'))
 
-      // TODO: instead of splitting by Stop, split by '\n'
-      this.dataList = this.dataString.split("Stop")
+      this.dataList = this.dataString.split("\n")
+      this.dataList.shift()
+
+      // TODO: In the current state, there is an " at the end of the last list item (on the end of the price)
+      let i = 0
+      let temp = []
+      while (i < this.dataList.length) {
+        temp = this.dataList[i].split(',')
+        this.dataList[i] = ({"name": temp[0], "id": temp[1], "price": temp[2]})
+        i += 1
+      }
 
       console.log(this.dataList)
     }.bind(this))

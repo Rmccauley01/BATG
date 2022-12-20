@@ -62,14 +62,26 @@
     </v-carousel>
 
     <v-container>
-      <v-row v-for="item in dataList" :key="item.id">
-        <v-col>
-        <v-card>
-          <v-img :src="require('../src/assets/product_images/Product_Image_1.jpg')" />
-          <v-card-title>{{ item.name }}</v-card-title>
-          <v-card-subtitle>{{ item.price }}</v-card-subtitle>
-        </v-card>
-      </v-col>
+      <v-row no-gutters>
+        <v-col
+          v-for="item in dataList"
+          :key="item.id"
+          cols="1"
+          lg="2"
+          md="3"
+          sm="4"
+        >
+          <v-card class="ma-3">
+            <v-img 
+              :src="require('../src/assets/product_images/Product_Image_1.jpg')" 
+              height="150px"
+              width="200px"
+              position="center"
+            />
+            <v-card-title>{{ item.name }}</v-card-title>
+            <v-card-subtitle>{{ item.price }}</v-card-subtitle>
+          </v-card>
+        </v-col>
       </v-row>
     </v-container>
 

@@ -84,6 +84,7 @@
             class="fill-height"
             align="center"
             justify="center"
+            no-gutters
           >
             <div class="mainFont">
               {{ slide }} Slide
@@ -93,7 +94,7 @@
       </v-carousel-item>
     </v-carousel>
 
-    <v-container>
+    <v-container style="background-color:black" fluid>
       <v-row no-gutters>
         <v-col
           v-for="item in dataList"
@@ -103,7 +104,7 @@
           md="3"
           sm="4"
         >
-          <v-card class="ma-3">
+          <v-card class="ma-3" max-width="200">
             <v-responsive>
               <v-img 
                 :src="require('../src/assets/product_images/Product_Image_1.jpg')" 
@@ -112,14 +113,13 @@
                 class="mx-auto"
               />
             </v-responsive>
-            <v-card-title>{{ item.name }}</v-card-title>
-            <v-card-subtitle>{{ item.price }}</v-card-subtitle>
+            <v-card-title class="mainFont2">{{ item.name }} | {{ item.price }}</v-card-title>
           </v-card>
         </v-col>
       </v-row>
     </v-container>
 
-    <v-footer></v-footer>
+    <v-footer style="background-color:black"></v-footer>
   </v-app>
 </template>
 
@@ -199,5 +199,10 @@ export default {
   .mainFont{
      font-family: "Norse";
      font-size: 28px;
+  }
+
+  .mainFont2{
+     font-family: "Norse";
+     font-size: 20px;
   }
 </style>

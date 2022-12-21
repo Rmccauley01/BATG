@@ -1,38 +1,70 @@
 <template>
   <v-app>
-    <v-app-bar color = "black">
 
-      <v-img
-        :src="require('../src/assets/batg_logo1.png')"
-        class="my-3"
-        height="200"
-        max-width="140"
-      />
+    <v-navigation-drawer
+      v-model="drawer"
+      absolute
+      bottom
+      temporary
+      color="black"
+    >
+      <v-list
+        nav
+        dense
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item 
+            v-for="item in items"
+            :key="item.name"
+          >
+            <v-btn class="mainFont" color="black">
+              {{item.name}}
+            </v-btn>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
 
-      <v-spacer></v-spacer>
+    <v-card class="mx-auto">
+      <v-app-bar color="black" hide-on-scroll="true">
 
-      <v-btn class="mainFont">
-        Mens
-      </v-btn>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-btn class="mainFont">
-        Womens
-      </v-btn>
+        <v-img
+          :src="require('../src/assets/batg_logo1.png')"
+          class="my-3"
+          height="200"
+          max-width="140"
+        />
 
-      <v-btn class="mainFont">
-        Accessories
-      </v-btn>
+        <v-spacer></v-spacer>
 
-      <v-spacer></v-spacer>
+        <v-btn class="mainFont">
+          Mens
+        </v-btn>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+        <v-btn class="mainFont">
+          Womens
+        </v-btn>
 
-      <v-btn icon>
-        <v-icon>mdi-cart-outline</v-icon>
-      </v-btn>
-    </v-app-bar>
+        <v-btn class="mainFont">
+          Accessories
+        </v-btn>
+
+        <v-spacer></v-spacer>
+
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-cart-outline</v-icon>
+        </v-btn>
+      </v-app-bar>
+    </v-card>
 
     <v-carousel 
       cycle
@@ -66,18 +98,20 @@
         <v-col
           v-for="item in dataList"
           :key="item.id"
-          cols="1"
+          cols="6"
           lg="2"
           md="3"
           sm="4"
         >
           <v-card class="ma-3">
-            <v-img 
-              :src="require('../src/assets/product_images/Product_Image_1.jpg')" 
-              height="150px"
-              width="200px"
-              position="center"
-            />
+            <v-responsive>
+              <v-img 
+                :src="require('../src/assets/product_images/Product_Image_1.jpg')" 
+                height="150px"
+                width="200px"
+                class="mx-auto"
+              />
+            </v-responsive>
             <v-card-title>{{ item.name }}</v-card-title>
             <v-card-subtitle>{{ item.price }}</v-card-subtitle>
           </v-card>
@@ -103,13 +137,33 @@ export default {
             'black',
             'black',
           ],
+          dataString: "",
+          dataList: [],
+          drawer: false,
+          group: null,
+          items: [
+            { name: 'Mens' },
+            { name: 'Womens' },
+            { name: 'Accessories' }
+          ],
           slides: [
             'First',
             'Second',
           ],
-          dataString: "",
-          dataList: [],
       };
+  },
+
+  watch: {
+    group () {
+      this.drawer = false
+    },
+  },
+
+  methods: {
+    goToPage(pageName) {
+      // Logic to navigate to page
+      console.log(pageName)
+    }
   },
 
   mounted() {
@@ -131,8 +185,6 @@ export default {
         this.dataList[i] = ({"name": temp[0], "id": temp[1], "price": temp[2]})
         i += 1
       }
-
-      console.log(this.dataList)
     }.bind(this))
   }
 };

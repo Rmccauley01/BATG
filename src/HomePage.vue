@@ -115,9 +115,31 @@
                 />
               </v-responsive>
               <v-card-title class="mainFont2">{{ item.name }} | {{ item.price }}</v-card-title>
-              <v-btn class="mainFont mb-3" color="black" flat>
-                Shop
-              </v-btn>
+
+              <div class="text-center">
+                <v-dialog
+                  v-model="dialog"
+                  width="500"
+                >
+                  <template v-slot:activator="{ attrs }">
+                    <v-btn
+                      class="mainFont mb-3" 
+                      color="black" 
+                      flat
+                      v-bind="attrs"
+                      v-on:click="changeDialog"
+                    >
+                      Shop
+                    </v-btn>
+                  </template>
+
+                  <v-card>
+                    <v-card-title class="text-h5 grey lighten-2">
+                      Privacy Policy
+                    </v-card-title>
+                  </v-card>
+                </v-dialog>
+              </div>
             </v-card>
           </v-col>
         </v-row>
@@ -144,6 +166,7 @@ export default {
           ],
           dataString: "",
           dataList: [],
+          dialog: false,
           drawer: false,
           group: null,
           items: [
@@ -165,6 +188,10 @@ export default {
   },
 
   methods: {
+    changeDialog() {
+      this.dialog = true
+    },
+
     goToPage(pageName) {
       // Logic to navigate to page
       console.log(pageName)

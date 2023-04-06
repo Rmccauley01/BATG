@@ -4,6 +4,7 @@
       v-model="drawer"
       bottom
       color="black"
+      disable-resize-watcher="true"
     >
       <v-list
         nav

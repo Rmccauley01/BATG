@@ -1,6 +1,5 @@
 <template>
   <v-app>
-
     <NavigationBar 
       :drawer="drawer"
       :items="items"
@@ -69,16 +68,57 @@
                       color="black" 
                       flat
                       v-bind="attrs"
-                      v-on:click="changeDialog"
+                      v-on:click="changeDialog(item.id)"
                     >
                       Shop
                     </v-btn>
                   </template>
 
                   <v-card>
-                    <v-card-title class="text-h5 grey lighten-2">
-                      Privacy Policy
-                    </v-card-title>
+                    <v-container>
+                      <v-row justify="center">
+                        <v-col cols="6">
+                          <v-img 
+                            :src="require('../src/assets/product_images/Product_Image_1.jpg')" 
+                            height="300px"
+                            width="400px"
+                            class="mx-auto"
+                          />
+                        </v-col>
+                        <v-col class="mx-2" cols="6">
+                          <v-row class="mb-3" justify="center">
+                            <v-card-title class="mainFont"> {{dataList[windowItem-1].name}} | {{dataList[windowItem-1].price}} </v-card-title>
+                          </v-row>
+                          <v-row justify="center">
+                            <v-select
+                              :items="dataList[windowItem-1].sizes"
+                              v-model="size"
+                              label="Size"
+                              solo
+                              class="mainFont"
+                            ></v-select>
+                          </v-row>
+                          <v-row justify="center">
+                            <v-select
+                              :items="quantities"
+                              v-model="quantity"
+                              label="Qty"
+                              solo
+                              class="mainFont"
+                            ></v-select>
+                          </v-row>
+                          <v-row justify="center">
+                            <v-btn
+                              class="mainFont mb-3"
+                              color="black"
+                              v-on:click="addToCart()"
+                            >
+                              Add to Cart
+                            </v-btn>
+                          </v-row>
+                        </v-col>
+                      </v-row>
+                    </v-container>
                   </v-card>
                 </v-dialog>
               </div>
@@ -121,10 +161,14 @@ export default {
             { name: 'Womens' },
             { name: 'Accessories' }
           ],
+          quantities: [1,2,3,4,5],
+          quantity: 1,
+          size: null,
           slides: [
             'First',
             'Second',
           ],
+          windowItem: 0,
       };
   },
 
@@ -135,8 +179,18 @@ export default {
   },
 
   methods: {
-    changeDialog() {
+    addToCart() {
+      if (this.size != null) {
+        console.log(this.quantity, this.size)
+        this.size = null
+        this.quantity = 1
+        this.dialog = false
+      }
+    },
+
+    changeDialog(id) {
       this.dialog = true
+      this.windowItem = id
     },
 
     goToPage(pageName) {
@@ -160,7 +214,7 @@ export default {
         let temp = []
         while (i < this.dataList.length) {
           temp = this.dataList[i].split(',')
-          this.dataList[i] = ({"name": temp[0], "id": temp[1], "price": temp[2]})
+          this.dataList[i] = ({"name": temp[0], "id": temp[1], "price": temp[2], "sizes": ["Small", "Medium", "Large"]})
           i += 1
         }
       }.bind(this))

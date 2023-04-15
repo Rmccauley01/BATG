@@ -43,9 +43,11 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn v-for="item in items" :key="item.name" class="mainFont">
-        {{item.name}}
-      </v-btn>
+      <v-card color="black" v-if="!isMobile">
+        <v-btn v-for="item in items" :key="item.name" class="mainFont">
+          {{item.name}}
+        </v-btn>
+      </v-card>
 
       <v-spacer></v-spacer>
 
@@ -71,6 +73,8 @@
     data() {
       return {
         isDrawerOpen: this.drawer,
+        screenWidth: window.innerWidth,
+        isMobile: window.innerWidth <= 1000
       }
     },
 
@@ -79,6 +83,21 @@
         this.isDrawerOpen = newVal
       }
     },
+
+    mounted() {
+      window.addEventListener("resize", this.handleResize);
+    },
+
+    unmounted() {
+      window.removeEventListener("resize", this.handleResize);
+    },
+
+    methods: {
+      handleResize() {
+        this.screenWidth = window.innerWidth;
+        this.isMobile = window.innerWidth <= 1000;
+      }
+    }
   }
 </script>
 

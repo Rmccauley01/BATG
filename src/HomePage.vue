@@ -7,34 +7,7 @@
     />
 
     <v-card>
-      <v-carousel
-        id="scrolling-techniques-4"
-        cycle
-        height="400"
-        hide-delimiter-background
-        :show-arrows="false"
-      >
-        <v-carousel-item
-          v-for="(slide, i) in slides"
-          :key="i"
-        >
-          <v-sheet
-            :color="colors[i]"
-            height="100%"
-          >
-            <v-row
-              class="fill-height"
-              align="center"
-              justify="center"
-              no-gutters
-            >
-              <div class="mainFont">
-                {{ slide }} Slide
-              </div>
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
-      </v-carousel>
+      <SlideShow/>
 
       <v-container style="background-color:black" fluid>
         <v-row no-gutters>
@@ -136,21 +109,19 @@
 
 import axios from 'axios';
 import NavigationBar from './components/NavigationBar.vue'
+import SlideShow from './components/SlideShow.vue'
 
 export default {
     
   name: "HomePage",
 
   components: {
-    NavigationBar
+    NavigationBar,
+    SlideShow,
   },
 
   data() {
       return {
-          colors: [
-            'black',
-            'black',
-          ],
           dataString: "",
           dataList: [],
           dialog: false,
@@ -164,10 +135,6 @@ export default {
           quantities: [1,2,3,4,5],
           quantity: 1,
           size: null,
-          slides: [
-            'First',
-            'Second',
-          ],
           windowItem: 0,
       };
   },

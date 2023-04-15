@@ -1,72 +1,12 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      v-model="drawer"
-      bottom
-      color="black"
-      disable-resize-watcher="true"
-    >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item 
-            v-for="item in items"
-            :key="item.name"
-          >
-            <v-btn class="mainFont" color="black">
-              {{item.name}}
-            </v-btn>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
+    <NavigationBar 
+      :drawer="drawer"
+      :items="items"
+      @change-drawer="toggleDrawer"  
+    />
 
-    <v-card class="mx-auto">
-      <v-app-bar 
-        color="black" 
-        hide-on-scroll 
-        scroll-target="#scrolling-techniques-4"
-      >
-
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
-        <v-img
-          :src="require('../src/assets/batg_logo1.png')"
-          class="my-3"
-          height="200"
-          max-width="140"
-        />
-
-        <v-spacer></v-spacer>
-
-        <v-btn class="mainFont">
-          Mens
-        </v-btn>
-
-        <v-btn class="mainFont">
-          Womens
-        </v-btn>
-
-        <v-btn class="mainFont">
-          Accessories
-        </v-btn>
-
-        <v-spacer></v-spacer>
-
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-cart-outline</v-icon>
-        </v-btn>
-      </v-app-bar>
-
+    <v-card>
       <v-carousel
         id="scrolling-techniques-4"
         cycle
@@ -195,10 +135,15 @@
 <script>
 
 import axios from 'axios';
+import NavigationBar from './components/NavigationBar.vue'
 
 export default {
     
   name: "HomePage",
+
+  components: {
+    NavigationBar
+  },
 
   data() {
       return {
@@ -273,7 +218,11 @@ export default {
           i += 1
         }
       }.bind(this))
-    }
+    },
+
+    toggleDrawer() {
+      this.drawer = !this.drawer;
+    },
   },
 
   mounted() {

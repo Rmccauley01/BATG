@@ -1,0 +1,101 @@
+<template>
+  <v-navigation-drawer
+    v-model="isDrawerOpen"
+    disable-resize-watcher="true"
+    bottom
+    color="black"
+  >
+    <v-list
+      nav
+      dense
+    >
+      <v-list-item-group
+        v-model="group"
+        active-class="deep-purple--text text--accent-4"
+      >
+        <v-list-item 
+          v-for="item in items"
+          :key="item.name"
+        >
+          <v-btn class="mainFont" color="black">
+            {{item.name}}
+          </v-btn>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+  </v-navigation-drawer>
+
+  <v-card class="mx-auto">
+    <v-app-bar 
+      color="black" 
+      hide-on-scroll 
+      scroll-target="#scrolling-techniques-4"
+    >
+
+      <v-app-bar-nav-icon @click="$emit('change-drawer')"></v-app-bar-nav-icon>
+
+      <v-img
+        :src="require('@/assets/batg_logo1.png')"
+        class="my-3"
+        height="200"
+        max-width="140"
+      />
+
+      <v-spacer></v-spacer>
+
+      <v-btn v-for="item in items" :key="item.name" class="mainFont">
+        {{item.name}}
+      </v-btn>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-cart-outline</v-icon>
+      </v-btn>
+    </v-app-bar>
+  </v-card>
+</template>
+
+<script>
+  export default{
+
+    name: "NavigationBar",
+
+    props: ['drawer','items'],
+    emits: ['change-drawer'],
+
+    data() {
+      return {
+        isDrawerOpen: this.drawer,
+      }
+    },
+
+    watch: {
+      drawer(newVal) {
+        this.isDrawerOpen = newVal
+      }
+    },
+  }
+</script>
+
+
+<style>
+body {
+  background-color: "{{ backgroundColor }}";
+  color: "{{ textColor }}";
+}
+
+.mainFont{
+  font-family: "Norse";
+  font-size: 28px;
+}
+
+.mainFont2{
+  font-family: "Norse";
+  font-size: 20px;
+}
+</style>

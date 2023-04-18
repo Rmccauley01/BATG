@@ -197,20 +197,3 @@ export default {
   }
 };
 </script>
-
-<style>
-  body {
-    background-color: "{{ backgroundColor }}";
-    color: "{{ textColor }}";
-  }
-
-  .mainFont{
-     font-family: "Norse";
-     font-size: 28px;
-  }
-
-  .mainFont2{
-     font-family: "Norse";
-     font-size: 20px;
-  }
-</style>

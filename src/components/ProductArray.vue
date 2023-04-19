@@ -119,7 +119,7 @@
     methods: {
       addToCart() {
         if (this.size != null) {
-          console.log(this.quantity, this.size)
+          console.log(this.windowItem, this.quantity, this.size)
           this.size = null
           this.quantity = 1
           this.dialog = false

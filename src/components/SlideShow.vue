@@ -5,7 +5,7 @@
     :interval="8000"
     hide-delimiter-background
     :show-arrows="false"
-    height="auto"
+    height="576"
   >
     <v-sheet 
       color="black" 
@@ -20,6 +20,7 @@
         class="item"
         max-width="1024"
         max-height="576"
+        fade
       >
       </v-carousel-item>
     </v-sheet>

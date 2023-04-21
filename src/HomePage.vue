@@ -21,7 +21,7 @@
 
 <script>
 
-import axios from 'axios';
+//import axios from 'axios';
 import NavigationBar from './components/NavigationBar.vue'
 import SlideShow from './components/SlideShow.vue'
 import ProductArray from './components/ProductArray.vue'

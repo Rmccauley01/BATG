@@ -32,7 +32,7 @@
       scroll-target="#scrolling-techniques-4"
     >
 
-      <v-app-bar-nav-icon @click="$emit('change-drawer')"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="$emit('change-drawer')" class="mobile-only"></v-app-bar-nav-icon>
 
       <v-img
         :src="require('@/assets/batg_logo1.png')"

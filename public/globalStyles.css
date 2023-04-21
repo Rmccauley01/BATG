@@ -12,3 +12,9 @@ body {
     font-family: "Norse";
     font-size: 20px;
 }
+
+@media only screen and (min-width: 1000px) {
+  .mobile-only {
+    display: none !important;
+  }
+}

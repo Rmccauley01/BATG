@@ -26,6 +26,9 @@ import NavigationBar from './components/NavigationBar.vue'
 import SlideShow from './components/SlideShow.vue'
 import ProductArray from './components/ProductArray.vue'
 
+import db from '@/fb'
+import { getDocs, collection } from "firebase/firestore"
+
 export default {
     
   name: "HomePage",
@@ -38,6 +41,7 @@ export default {
 
   data() {
       return {
+          colRef: null,
           dataString: "",
           dataList: [],
           drawer: false,
@@ -65,6 +69,19 @@ export default {
     },
 
     retrieveProductData() {
+
+      this.colRef = collection(db, 'products')
+
+      getDocs(this.colRef)
+        .then((snapshot) => {
+          snapshot.docs.forEach((doc) => {
+            this.dataList.push({ ...doc.data(), id: doc.id })
+          })
+        })
+        .catch( err => {
+          console.log(err.message)
+        })
+
       //axios({
       //  method: 'get',
       //  url: 'https://docs.google.com/spreadsheets/d/1NFbXtCu2DqdEMWCk70BbInQkY4TAIq4d3p3W-JQJ5No/edit#gid=0',

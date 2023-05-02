@@ -12,13 +12,13 @@
         <v-card class="ma-3" max-width="200">
           <v-responsive>
             <v-img 
-              :src="require('@/assets/product_images/Product_Image_1.jpg')" 
+              :src="require('@/assets/product_images/Product_Image_1.jpg')"
               height="150px"
               width="200px"
               class="mx-auto"
             />
           </v-responsive>
-          <v-card-title class="mainFont2">{{ item.name }} | {{ item.price }}</v-card-title>
+          <v-card-title class="mainFont2">{{ item.product_name }} | {{ item.price }}</v-card-title>
 
           <div class="text-center">
             <v-dialog
@@ -50,11 +50,13 @@
                     </v-col>
                     <v-col class="mx-2" cols="6">
                       <v-row class="mb-3" justify="center">
-                        <v-card-title class="mainFont"> {{dataList[windowItem-1].name}} | {{dataList[windowItem-1].price}} </v-card-title>
+                        <v-card-title class="mainFont"> 
+                          {{ getItemById(dataList, windowItem).product_name }} | {{ getItemById(dataList, windowItem).price }} 
+                        </v-card-title>
                       </v-row>
                       <v-row justify="center">
                         <v-select
-                          :items="dataList[windowItem-1].sizes"
+                          :items="getItemById(dataList, windowItem).sizes"
                           v-model="size"
                           label="Size"
                           solo
@@ -129,6 +131,16 @@
       changeDialog(id) {
         this.dialog = true
         this.windowItem = id
+      },
+
+      getItemById(list, id) {
+        return list.find(item => item.id === id);
+      },
+
+      isSizeUnavailable(event, sizes, inventory) {
+        const index = sizes.indexOf(event);
+        console.log(inventory[index] === 0)
+        return inventory[index] === 0;
       },
     }
   }

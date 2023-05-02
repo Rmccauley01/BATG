@@ -28,8 +28,8 @@
   <v-card class="mx-auto">
     <v-app-bar 
       color="black" 
-      hide-on-scroll 
       scroll-target="#scrolling-techniques-4"
+      scroll-behavior="elevate"
     >
 
       <v-app-bar-nav-icon @click="$emit('change-drawer')"></v-app-bar-nav-icon>
@@ -55,7 +55,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn icon>
+      <v-btn @click="$emit('open-cart');" icon >
         <v-icon>mdi-cart-outline</v-icon>
       </v-btn>
     </v-app-bar>

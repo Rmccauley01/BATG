@@ -25,6 +25,27 @@
     </v-list>
   </v-navigation-drawer>
 
+  <v-navigation-drawer
+    location="right"
+    v-model="cartDrawer"
+    disable-resize-watcher="true"
+    color="black"
+  >
+    <v-list>
+      <v-list-item-title class="mainFont my-3">
+        Shopping Cart
+        <v-btn 
+          color="black" 
+          icon="mdi-close" 
+          @click="$emit('open-cart');"
+        ></v-btn>
+      </v-list-item-title>
+      <v-list-item v-if="notEmpty" class="mainFont2 my-3">
+        Cart is Empty
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
+
   <v-card class="mx-auto">
     <v-app-bar 
       color="black" 
@@ -67,15 +88,27 @@
 
     name: "NavigationBar",
 
-    props: ['drawer','items'],
+    props: ['drawer','items','cartOpen','shoppingCart'],
     emits: ['change-drawer'],
 
     data() {
       return {
         isDrawerOpen: this.drawer,
+        notEmpty: this.shoppingCart.length == 0,
+        isMobile: window.innerWidth <= 1000,
         screenWidth: window.innerWidth,
-        isMobile: window.innerWidth <= 1000
       }
+    },
+
+    computed: {
+      cartDrawer: {
+        get() {
+          return this.cartOpen;
+        },
+        set(value) {
+          this.$emit('update:cartOpen', value);
+        }
+      },
     },
 
     watch: {

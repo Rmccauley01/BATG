@@ -3,15 +3,13 @@
     <NavigationBar 
       :drawer="drawer"
       :items="items"
+      :cartOpen="cartOpen"
+      :shoppingCart="shoppingCart"
       @change-drawer="toggleDrawer"
       @open-cart="openCart"
     />
 
     <SlideShow/>
-
-    <ShoppingCart
-      :cartOpen="cartOpen"
-    />
 
     <ProductArray
       :dataList="dataList"
@@ -28,7 +26,6 @@
 
 //import axios from 'axios';
 import NavigationBar from './components/NavigationBar.vue'
-import ShoppingCart from './components/ShoppingCart.vue'
 import SlideShow from './components/SlideShow.vue'
 import ProductArray from './components/ProductArray.vue'
 
@@ -41,7 +38,6 @@ export default {
 
   components: {
     NavigationBar,
-    ShoppingCart,
     SlideShow,
     ProductArray
   },

@@ -12,6 +12,8 @@
       <ProductArray
         :dataList="dataList"
         :quantities="quantities"
+        :shoppingCart="shoppingCart"
+        @update-shopping-cart="updateShoppingCart"
       /> 
 
       <v-footer style="background-color:black"></v-footer>
@@ -52,6 +54,7 @@ export default {
             { name: 'Accessories' }
           ],
           quantities: [1,2,3,4,5],
+          shoppingCart: [],
       };
   },
 
@@ -81,33 +84,14 @@ export default {
         .catch( err => {
           console.log(err.message)
         })
-
-      //axios({
-      //  method: 'get',
-      //  url: 'https://docs.google.com/spreadsheets/d/1NFbXtCu2DqdEMWCk70BbInQkY4TAIq4d3p3W-JQJ5No/edit#gid=0',
-      //}) .then(function (response) {
-      //  this.dataString = response.data.split("Sheet1")[1]
-      //  this.dataString = this.dataString.substring(2,this.dataString.indexOf('>'))
-
-      //  this.dataList = this.dataString.split("\n")
-      //  this.dataList.shift()
-
-      //  // TODO: In the current state, there is an " at the end of the last list item (on the end of the price)
-      //  let i = 0
-      //  let temp = []
-      //  while (i < this.dataList.length) {
-      //    temp = this.dataList[i].split(',')
-      //    this.dataList[i] = ({"name": temp[0], "id": temp[1], "price": temp[2], "sizes": ["Small", "Medium", "Large"]})
-      //    i += 1
-      //  }
-      //}.bind(this))
-      //
-
-      console.log("Test test, 1, 2")
     },
 
     toggleDrawer() {
       this.drawer = !this.drawer;
+    },
+
+    updateShoppingCart(cartItem) {
+      this.shoppingCart.push(cartItem)
     },
   },
 

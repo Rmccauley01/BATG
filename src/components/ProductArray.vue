@@ -94,11 +94,12 @@
 </template>
 
 <script>
+
   export default{
 
     name: "ProductArray",
 
-    props: ['dataList','quantities'],
+    props: ['dataList','quantities','shoppingCart'],
 
     data() {
       return {
@@ -121,7 +122,10 @@
     methods: {
       addToCart() {
         if (this.size != null) {
-          console.log(this.windowItem, this.quantity, this.size)
+          var cartItem = {id: this.windowItem, quantity: this.quantity, size: this.size}
+
+          this.$emit('update-shopping-cart', cartItem);
+
           this.size = null
           this.quantity = 1
           this.dialog = false

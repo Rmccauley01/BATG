@@ -3,21 +3,24 @@
     <NavigationBar 
       :drawer="drawer"
       :items="items"
-      @change-drawer="toggleDrawer"  
+      @change-drawer="toggleDrawer"
+      @open-cart="openCart"
     />
 
-    <v-card>
-      <SlideShow/>
+    <SlideShow/>
 
-      <ProductArray
-        :dataList="dataList"
-        :quantities="quantities"
-        :shoppingCart="shoppingCart"
-        @update-shopping-cart="updateShoppingCart"
-      /> 
+    <ShoppingCart
+      :cartOpen="cartOpen"
+    />
 
-      <v-footer style="background-color:black"></v-footer>
-    </v-card>
+    <ProductArray
+      :dataList="dataList"
+      :quantities="quantities"
+      :shoppingCart="shoppingCart"
+      @update-shopping-cart="updateShoppingCart"
+    /> 
+
+    <v-footer style="background-color:black"></v-footer>
   </v-app>
 </template>
 
@@ -25,6 +28,7 @@
 
 //import axios from 'axios';
 import NavigationBar from './components/NavigationBar.vue'
+import ShoppingCart from './components/ShoppingCart.vue'
 import SlideShow from './components/SlideShow.vue'
 import ProductArray from './components/ProductArray.vue'
 
@@ -37,12 +41,14 @@ export default {
 
   components: {
     NavigationBar,
+    ShoppingCart,
     SlideShow,
     ProductArray
   },
 
   data() {
       return {
+          cartOpen: false,
           colRef: null,
           dataString: "",
           dataList: [],
@@ -71,6 +77,10 @@ export default {
       console.log(pageName)
     },
 
+    openCart() {
+      this.cartOpen = !this.cartOpen
+    },
+
     retrieveProductData() {
 
       this.colRef = collection(db, 'products')
@@ -92,6 +102,7 @@ export default {
 
     updateShoppingCart(cartItem) {
       this.shoppingCart.push(cartItem)
+      this.openCart()
     },
   },
 

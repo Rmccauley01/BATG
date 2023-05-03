@@ -73,8 +73,12 @@ export default {
       console.log(pageName)
     },
 
-    openCart() {
-      this.cartOpen = !this.cartOpen
+    openCart(keepOpen) {
+      if (keepOpen != true) {
+        this.cartOpen = !this.cartOpen
+      } else if (!this.cartOpen) {
+        this.cartOpen = !this.cartOpen
+      }
     },
 
     retrieveProductData() {
@@ -98,7 +102,8 @@ export default {
 
     updateShoppingCart(cartItem) {
       this.shoppingCart.push(cartItem)
-      this.openCart()
+      console.log(cartItem)
+      this.openCart(true)
     },
   },
 

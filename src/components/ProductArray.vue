@@ -122,7 +122,10 @@
     methods: {
       addToCart() {
         if (this.size != null) {
-          var cartItem = {id: this.windowItem, quantity: this.quantity, size: this.size}
+          var cartItem = this.getItemById(this.dataList, this.windowItem)
+
+          cartItem["size"] = this.size
+          cartItem["quantity"] = this.quantity
 
           this.$emit('update-shopping-cart', cartItem);
 

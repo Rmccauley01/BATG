@@ -43,6 +43,40 @@
       <v-list-item v-if="notEmpty" class="mainFont2 my-3">
         Cart is Empty
       </v-list-item>
+      <v-list-item v-for="item in shoppingCart" :key="item.id">
+        <v-row align="center">
+          <v-col cols="4">
+            <v-img
+              :src="require('@/assets/product_images/Product_Image_1.jpg')"
+            />
+          </v-col>
+
+          <v-col>
+            <v-card color="black" class="mainFont3">
+              <v-row no-gutters align="center">
+                <v-col cols="12" align="left" class="mainFont2">
+                  {{ item.product_name }}
+                </v-col>
+              </v-row>
+              <v-row no-gutters align="center">
+                <v-col cols="6" align="left">
+                  {{ item.price }}
+                </v-col>
+              </v-row>
+              <v-row no-gutters align="center">
+                <v-col cols="6" align="left">
+                  {{ item.size }}
+                </v-col>
+                <v-col cols="6" align="left">
+                  <v-btn color="black" class="mainFont2" density="compact">
+                    Remove Item
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 
@@ -94,7 +128,6 @@
     data() {
       return {
         isDrawerOpen: this.drawer,
-        notEmpty: this.shoppingCart.length == 0,
         isMobile: window.innerWidth <= 1000,
         screenWidth: window.innerWidth,
       }
@@ -108,6 +141,10 @@
         set(value) {
           this.$emit('update:cartOpen', value);
         }
+      },
+
+      notEmpty() {
+        return this.shoppingCart.length == 0;
       },
     },
 

@@ -99,10 +99,11 @@
 
     name: "ProductArray",
 
-    props: ['dataList','quantities','shoppingCart'],
+    props: ['dataList','quantities'],
 
     data() {
       return {
+        cartItem: null,
         dialog: false,
         quantity: 1,
         size: null,
@@ -122,11 +123,16 @@
     methods: {
       addToCart() {
         if (this.size != null) {
-          var cartItem = this.getItemById(this.dataList, this.windowItem)
-
-          cartItem["size"] = this.size
-          cartItem["quantity"] = this.quantity
-
+          const itemInList = this.getItemById(this.dataList, this.windowItem);
+          const cartItem = {
+            id: itemInList.id,
+            product_name: itemInList.product_name,
+            image: itemInList.image,
+            price: itemInList.price,
+            size: this.size,
+            quantity: this.quantity
+          };
+          
           this.$emit('update-shopping-cart', cartItem);
 
           this.size = null
@@ -146,7 +152,6 @@
 
       isSizeUnavailable(event, sizes, inventory) {
         const index = sizes.indexOf(event);
-        console.log(inventory[index] === 0)
         return inventory[index] === 0;
       },
     }

@@ -62,13 +62,43 @@
                 <v-col cols="6" align="left">
                   {{ item.price }}
                 </v-col>
+                <v-col cols="6" align="left">
+                  <v-card>
+                    <v-row no-gutters align="center">
+                      <v-col cols="4">
+                        <v-btn 
+                          flat 
+                          density="compact" 
+                          icon="mdi-minus" 
+                          @click="changeQuantity(item, -1)"
+                        />
+                      </v-col>
+                      <v-col align="center" cols="4">
+                        {{ item.quantity }}
+                      </v-col>
+                      <v-col cols="4">
+                        <v-btn 
+                          flat 
+                          density="compact" 
+                          icon="mdi-plus" 
+                          @click="changeQuantity(item, 1)"
+                        />
+                      </v-col>
+                    </v-row>
+                  </v-card>
+                </v-col>
               </v-row>
               <v-row no-gutters align="center">
                 <v-col cols="6" align="left">
                   {{ item.size }}
                 </v-col>
                 <v-col cols="6" align="left">
-                  <v-btn color="black" class="mainFont2" density="compact">
+                  <v-btn 
+                    color="black" 
+                    class="mainFont2" 
+                    density="compact"
+                    @click="deleteCartItem(item)"
+                  >
                     Remove Item
                   </v-btn>
                 </v-col>
@@ -163,10 +193,19 @@
     },
 
     methods: {
+
+      changeQuantity(item, amount) {
+        this.$emit('update-quantity', item, amount)
+      },
+
+      deleteCartItem(item) {
+        this.$emit('delete-cart-item', item)
+      },
+
       handleResize() {
         this.screenWidth = window.innerWidth;
         this.isMobile = window.innerWidth <= 1000;
-      }
+      },
     }
   }
 </script>

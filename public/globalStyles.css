@@ -3,6 +3,12 @@ body {
   color: "{{ textColor }}";
 }
 
+.button{
+  outline: solid;
+  outline-color: white;
+  outline-width: thin;
+}
+
 .mainFont{
     font-family: "Norse";
     font-size: 28px;

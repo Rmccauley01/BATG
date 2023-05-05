@@ -108,6 +108,7 @@
         </v-row>
       </v-list-item>
     </v-list>
+    <v-btn @click="checkout" v-if="!notEmpty" class="mainFont my-12 button" color="black">Checkout</v-btn>
   </v-navigation-drawer>
 
   <v-card class="mx-auto">
@@ -198,6 +199,10 @@
         this.$emit('update-quantity', item, amount)
       },
 
+      checkout() {
+        console.log("Checkout!!!")
+      },
+
       deleteCartItem(item) {
         this.$emit('delete-cart-item', item)
       },
@@ -211,6 +216,12 @@
 </script>
 
 <style>
+
+.button{
+  outline: solid;
+  outline-color: white;
+  outline-width: thin;
+}
 
 .mainFont{
   font-size: 30px;

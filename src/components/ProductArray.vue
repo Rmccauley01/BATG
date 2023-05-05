@@ -94,6 +94,7 @@
 </template>
 
 <script>
+
   export default{
 
     name: "ProductArray",
@@ -102,6 +103,7 @@
 
     data() {
       return {
+        cartItem: null,
         dialog: false,
         quantity: 1,
         size: null,
@@ -121,7 +123,18 @@
     methods: {
       addToCart() {
         if (this.size != null) {
-          console.log(this.windowItem, this.quantity, this.size)
+          const itemInList = this.getItemById(this.dataList, this.windowItem);
+          const cartItem = {
+            id: itemInList.id,
+            product_name: itemInList.product_name,
+            image: itemInList.image,
+            price: itemInList.price,
+            size: this.size,
+            quantity: this.quantity
+          };
+          
+          this.$emit('update-shopping-cart', cartItem);
+
           this.size = null
           this.quantity = 1
           this.dialog = false
@@ -139,7 +152,6 @@
 
       isSizeUnavailable(event, sizes, inventory) {
         const index = sizes.indexOf(event);
-        console.log(inventory[index] === 0)
         return inventory[index] === 0;
       },
     }

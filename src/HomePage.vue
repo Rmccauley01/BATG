@@ -3,19 +3,23 @@
     <NavigationBar 
       :drawer="drawer"
       :items="items"
-      @change-drawer="toggleDrawer"  
+      :cartOpen="cartOpen"
+      :shoppingCart="shoppingCart"
+      @change-drawer="toggleDrawer"
+      @open-cart="openCart"
+      @update-quantity="updateQuantity"
+      @delete-cart-item="deleteCartItem"
     />
 
-    <v-card>
-      <SlideShow/>
+    <SlideShow/>
 
-      <ProductArray
-        :dataList="dataList"
-        :quantities="quantities"
-      /> 
+    <ProductArray
+      :dataList="dataList"
+      :quantities="quantities"
+      @update-shopping-cart="updateShoppingCart"
+    /> 
 
-      <v-footer style="background-color:black"></v-footer>
-    </v-card>
+    <v-footer style="background-color:black"></v-footer>
   </v-app>
 </template>
 
@@ -41,6 +45,7 @@ export default {
 
   data() {
       return {
+          cartOpen: false,
           colRef: null,
           dataString: "",
           dataList: [],
@@ -52,6 +57,7 @@ export default {
             { name: 'Accessories' }
           ],
           quantities: [1,2,3,4,5],
+          shoppingCart: [],
       };
   },
 
@@ -63,9 +69,27 @@ export default {
 
   methods: {
 
+    deleteCartItem(item) {
+      const index = this.shoppingCart.findIndex(cartItem => {
+        return Object.keys(item).every(key => cartItem[key] === item[key]);
+      });
+
+      if (index !== -1) {
+        this.shoppingCart.splice(index, 1);
+      }
+    },
+
     goToPage(pageName) {
       // Logic to navigate to page
       console.log(pageName)
+    },
+
+    openCart(keepOpen) {
+      if (keepOpen != true) {
+        this.cartOpen = !this.cartOpen
+      } else if (!this.cartOpen) {
+        this.cartOpen = !this.cartOpen
+      }
     },
 
     retrieveProductData() {
@@ -81,33 +105,37 @@ export default {
         .catch( err => {
           console.log(err.message)
         })
-
-      //axios({
-      //  method: 'get',
-      //  url: 'https://docs.google.com/spreadsheets/d/1NFbXtCu2DqdEMWCk70BbInQkY4TAIq4d3p3W-JQJ5No/edit#gid=0',
-      //}) .then(function (response) {
-      //  this.dataString = response.data.split("Sheet1")[1]
-      //  this.dataString = this.dataString.substring(2,this.dataString.indexOf('>'))
-
-      //  this.dataList = this.dataString.split("\n")
-      //  this.dataList.shift()
-
-      //  // TODO: In the current state, there is an " at the end of the last list item (on the end of the price)
-      //  let i = 0
-      //  let temp = []
-      //  while (i < this.dataList.length) {
-      //    temp = this.dataList[i].split(',')
-      //    this.dataList[i] = ({"name": temp[0], "id": temp[1], "price": temp[2], "sizes": ["Small", "Medium", "Large"]})
-      //    i += 1
-      //  }
-      //}.bind(this))
-      //
-
-      console.log("Test test, 1, 2")
     },
 
     toggleDrawer() {
       this.drawer = !this.drawer;
+    },
+
+    updateQuantity(item, amount) {
+      const index = this.shoppingCart.findIndex(cartItem => {
+        return Object.keys(item).every(key => cartItem[key] === item[key]);
+      });
+
+      if (index !== -1) {
+        this.shoppingCart[index].quantity += amount;
+
+        if (this.shoppingCart[index].quantity == 0) {
+          this.deleteCartItem(item)
+        }
+      }
+    },
+
+    updateShoppingCart(cartItem) {
+      const index = this.shoppingCart.findIndex(item => item.product_name === cartItem.product_name && item.size === cartItem.size);
+      if (index === -1) {
+        // if the item doesn't exist in the cart, add it as a new item
+        this.shoppingCart.push(cartItem);
+      } else {
+        // if the item already exists in the cart, create a new object with the updated size
+        const updatedItem = { ...this.shoppingCart[index], size: cartItem.size };
+        this.shoppingCart.splice(index, 1, updatedItem);
+      }
+      this.openCart(true);
     },
   },
 

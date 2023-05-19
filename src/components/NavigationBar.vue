@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     v-model="isDrawerOpen"
-    disable-resize-watcher="true"
+    v-bind:disable-resize-watcher="true"
     bottom
     color="black"
   >
@@ -9,26 +9,21 @@
       nav
       dense
     >
-      <v-list-item-group
-        v-model="group"
-        active-class="deep-purple--text text--accent-4"
+      <v-list-item 
+        v-for="item in items"
+        :key="item.name"
       >
-        <v-list-item 
-          v-for="item in items"
-          :key="item.name"
-        >
-          <v-btn class="mainFont" color="black">
-            {{item.name}}
-          </v-btn>
-        </v-list-item>
-      </v-list-item-group>
+        <v-btn class="mainFont" color="black">
+          {{item.name}}
+        </v-btn>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 
   <v-navigation-drawer
     location="right"
     v-model="cartDrawer"
-    disable-resize-watcher="true"
+    v-bind:disable-resize-watcher="true"
     color="black"
   >
     <v-list>
@@ -154,7 +149,7 @@
     name: "NavigationBar",
 
     props: ['drawer','items','cartOpen','shoppingCart'],
-    emits: ['change-drawer'],
+    emits: ['change-drawer', 'open-cart', 'update-quantity', 'delete-cart-item'],
 
     data() {
       return {

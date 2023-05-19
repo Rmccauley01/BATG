@@ -50,7 +50,6 @@ export default {
           dataString: "",
           dataList: [],
           drawer: false,
-          group: null,
           items: [
             { name: 'Mens' },
             { name: 'Womens' },
@@ -59,12 +58,6 @@ export default {
           quantities: [1,2,3,4,5],
           shoppingCart: [],
       };
-  },
-
-  watch: {
-    group () {
-      this.drawer = false
-    },
   },
 
   methods: {

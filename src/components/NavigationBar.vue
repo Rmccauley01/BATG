@@ -103,7 +103,7 @@
         </v-row>
       </v-list-item>
     </v-list>
-    <v-btn @click="checkout" v-if="!notEmpty" class="mainFont my-12 button" color="black">Checkout</v-btn>
+    <v-btn @click="$emit('show-form-dialog');" v-if="!notEmpty" class="mainFont my-12 button" color="black">Checkout</v-btn>
   </v-navigation-drawer>
 
   <v-card class="mx-auto">
@@ -149,7 +149,7 @@
     name: "NavigationBar",
 
     props: ['drawer','items','cartOpen','shoppingCart'],
-    emits: ['change-drawer', 'open-cart', 'update-quantity', 'delete-cart-item'],
+    emits: ['change-drawer', 'open-cart', 'update-quantity', 'delete-cart-item', 'show-form-dialog'],
 
     data() {
       return {

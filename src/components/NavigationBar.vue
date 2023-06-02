@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     v-model="isDrawerOpen"
-    disable-resize-watcher="true"
+    v-bind:disable-resize-watcher="true"
     bottom
     color="black"
   >
@@ -9,26 +9,21 @@
       nav
       dense
     >
-      <v-list-item-group
-        v-model="group"
-        active-class="deep-purple--text text--accent-4"
+      <v-list-item 
+        v-for="item in items"
+        :key="item.name"
       >
-        <v-list-item 
-          v-for="item in items"
-          :key="item.name"
-        >
-          <v-btn class="mainFont" color="black">
-            {{item.name}}
-          </v-btn>
-        </v-list-item>
-      </v-list-item-group>
+        <v-btn class="mainFont" color="black">
+          {{item.name}}
+        </v-btn>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 
   <v-navigation-drawer
     location="right"
     v-model="cartDrawer"
-    disable-resize-watcher="true"
+    v-bind:disable-resize-watcher="true"
     color="black"
   >
     <v-list>
@@ -108,7 +103,7 @@
         </v-row>
       </v-list-item>
     </v-list>
-    <v-btn @click="checkout" v-if="!notEmpty" class="mainFont my-12 button" color="black">Checkout</v-btn>
+    <v-btn @click="$emit('show-form-dialog');" v-if="!notEmpty" class="mainFont my-12 button" color="black">Checkout</v-btn>
   </v-navigation-drawer>
 
   <v-card class="mx-auto">
@@ -154,7 +149,7 @@
     name: "NavigationBar",
 
     props: ['drawer','items','cartOpen','shoppingCart'],
-    emits: ['change-drawer'],
+    emits: ['change-drawer', 'open-cart', 'update-quantity', 'delete-cart-item', 'show-form-dialog'],
 
     data() {
       return {

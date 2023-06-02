@@ -9,7 +9,6 @@
       @open-cart="openCart"
       @update-quantity="updateQuantity"
       @delete-cart-item="deleteCartItem"
-      @show-form-dialog="showFormDialog"
     />
 
     <SlideShow/>
@@ -18,27 +17,7 @@
       :dataList="dataList"
       :quantities="quantities"
       @update-shopping-cart="updateShoppingCart"
-    />
-
-    <v-dialog 
-      v-model="formDialogVisible" 
-      fullscreen 
-      hide-overlay
-      >
-      <v-card color="black">
-        <v-card-title>
-          <span class="headline">Form Title</span>
-        </v-card-title>
-        <v-card-text>
-          <!-- Your form content here -->
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn @click="submitForm">Submit</v-btn>
-          <v-btn @click="closeFormDialog">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    /> 
 
     <v-footer style="background-color:black"></v-footer>
   </v-app>
@@ -47,9 +26,9 @@
 <script>
 
 //import axios from 'axios';
-import NavigationBar from './components/NavigationBar.vue'
-import SlideShow from './components/SlideShow.vue'
-import ProductArray from './components/ProductArray.vue'
+import NavigationBar from './NavigationBar.vue'
+import SlideShow from './SlideShow.vue'
+import ProductArray from './ProductArray.vue'
 
 import db from '@/fb'
 import { getDocs, collection } from "firebase/firestore"
@@ -71,7 +50,7 @@ export default {
           dataString: "",
           dataList: [],
           drawer: false,
-          formDialogVisible: false,
+          group: null,
           items: [
             { name: 'Mens' },
             { name: 'Womens' },
@@ -82,11 +61,13 @@ export default {
       };
   },
 
-  methods: {
-
-    closeFormDialog() {
-      this.formDialogVisible = false;
+  watch: {
+    group () {
+      this.drawer = false
     },
+  },
+
+  methods: {
 
     deleteCartItem(item) {
       const index = this.shoppingCart.findIndex(cartItem => {
@@ -124,17 +105,6 @@ export default {
         .catch( err => {
           console.log(err.message)
         })
-    },
-
-    showFormDialog() {
-      this.formDialogVisible = true;
-    },
-
-    submitForm() {
-      // Handle form submission logic
-      // You can access form data using Vue data properties
-      // and perform any necessary actions
-      this.closeFormDialog();
     },
 
     toggleDrawer() {

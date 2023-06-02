@@ -5,7 +5,7 @@
     :interval="8000"
     hide-delimiter-background
     :show-arrows="false"
-    height="576"
+    height="auto"
   >
     <v-sheet 
       color="black" 
@@ -17,7 +17,6 @@
         v-for="(slide, i) in slides"
         :key="i"
         :src="slide.src"
-        class="item"
         max-width="1024"
         max-height="576"
         fade

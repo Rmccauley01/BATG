@@ -63,15 +63,31 @@
                           class="mainFont"
                         ></v-select>
                       </v-row>
-                      <v-row justify="center">
-                        <v-select
-                          :items="quantities"
-                          v-model="quantity"
-                          label="Qty"
-                          solo
-                          class="mainFont"
-                        ></v-select>
-                      </v-row>
+                      <v-card class="mt-6 mb-9" color="grey-lighten-4" elevation="1">
+                        <v-row justify="center" class="ma-1">
+                          <v-col cols="4" align="center">
+                            <v-btn
+                              flat
+                              color="grey-lighten-4"
+                              density="compact" 
+                              icon="mdi-minus" 
+                              @click="changeQuantity(-1)"
+                            />
+                          </v-col>
+                          <v-col align="center" cols="4" class="mainFont2">
+                            {{ quantity }}
+                          </v-col>
+                          <v-col cols="4" align="center">
+                            <v-btn 
+                              flat
+                              color="grey-lighten-4"
+                              density="compact" 
+                              icon="mdi-plus" 
+                              @click="changeQuantity(1)"
+                            />
+                          </v-col>
+                        </v-row>
+                      </v-card>
                       <v-row justify="center">
                         <v-btn
                           class="mainFont mb-3"
@@ -144,6 +160,12 @@
       changeDialog(id) {
         this.dialog = true
         this.windowItem = id
+      },
+
+      changeQuantity(amount) {
+        if (this.quantity + amount != 0) {
+          this.quantity += amount
+        }
       },
 
       getItemById(list, id) {

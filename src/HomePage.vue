@@ -10,6 +10,7 @@
       @update-quantity="updateQuantity"
       @delete-cart-item="deleteCartItem"
       @show-form-dialog="showFormDialog"
+      @update-filter="updateFilter"
     />
 
     <SlideShow/>
@@ -120,6 +121,7 @@ export default {
           snapshot.docs.forEach((doc) => {
             this.dataList.push({ ...doc.data(), id: doc.id })
           })
+          console.log(this.dataList)
         })
         .catch( err => {
           console.log(err.message)
@@ -139,6 +141,10 @@ export default {
 
     toggleDrawer() {
       this.drawer = !this.drawer;
+    },
+
+    updateFilter(type) {
+      console.log("You're shopping for ", type, " clothing.")
     },
 
     updateQuantity(item, amount) {

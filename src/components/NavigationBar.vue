@@ -13,7 +13,11 @@
         v-for="item in items"
         :key="item.name"
       >
-        <v-btn class="mainFont" color="black">
+        <v-btn
+          @click="$emit('update-filter', item.name);" 
+          class="mainFont" 
+          color="black"
+        >
           {{item.name}}
         </v-btn>
       </v-list-item>
@@ -124,7 +128,12 @@
     <v-spacer></v-spacer>
 
     <v-card color="black" v-if="!isMobile">
-      <v-btn v-for="item in items" :key="item.name" class="mainFont">
+      <v-btn
+        @click="$emit('update-filter', item.name);"
+        v-for="item in items" 
+        :key="item.name" 
+        class="mainFont"
+      >
         {{item.name}}
       </v-btn>
     </v-card>
@@ -147,7 +156,7 @@
     name: "NavigationBar",
 
     props: ['drawer','items','cartOpen','shoppingCart'],
-    emits: ['change-drawer', 'open-cart', 'update-quantity', 'delete-cart-item', 'show-form-dialog'],
+    emits: ['change-drawer', 'open-cart', 'update-quantity', 'delete-cart-item', 'show-form-dialog', 'update-filter'],
 
     data() {
       return {

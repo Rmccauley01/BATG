@@ -49,10 +49,15 @@
                       />
                     </v-col>
                     <v-col class="mx-2" cols="6">
-                      <v-row class="mb-3" justify="center">
+                      <v-row justify="center">
                         <v-card-title class="mainFont"> 
                           {{ getItemById(dataList, windowItem).product_name }} | {{ getItemById(dataList, windowItem).price }} 
                         </v-card-title>
+                      </v-row>
+                      <v-row class="mb-3" justify="center">
+                        <v-card-text class="mainFontDescription" align="center">
+                          {{ getItemById(dataList, windowItem).description }}
+                        </v-card-text>
                       </v-row>
                       <v-row justify="center">
                         <v-select
@@ -179,3 +184,10 @@
     }
   }
 </script>
+
+<style scoped>
+.mainFontDescription{
+  font-family: "Norse";
+  font-size: 20px;
+}
+</style>

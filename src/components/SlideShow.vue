@@ -1,6 +1,6 @@
 <template>
   <v-container 
-    class="slideshow-wrapper mt-3" 
+    class="slideshow-wrapper" 
     fluid 
     height="auto"
     style="background-color:black"
@@ -31,11 +31,12 @@
   left: 0;
   right: 0;
   bottom: 0;
+  margin:auto;
 }
 
 .crossfade-enter-active,
 .crossfade-leave-active {
-  transition: opacity 1s;
+  transition: opacity 5s;
 }
 
 .crossfade-enter,

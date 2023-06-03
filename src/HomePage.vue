@@ -1,23 +1,21 @@
 <template>
   <v-app style="background-color:black">
     <NavigationBar 
-      :drawer="drawer"
-      :items="items"
       :cartOpen="cartOpen"
       :shoppingCart="shoppingCart"
       @change-drawer="toggleDrawer"
-      @open-cart="openCart"
-      @update-quantity="updateQuantity"
       @delete-cart-item="deleteCartItem"
+      @open-cart="openCart"
       @show-form-dialog="showFormDialog"
       @update-filter="updateFilter"
+      @update-quantity="updateQuantity"
     />
 
     <SlideShow/>
 
     <ProductArray
       :dataList="dataList"
-      :quantities="quantities"
+      :filter="filter"
       @update-shopping-cart="updateShoppingCart"
     />
 
@@ -71,14 +69,8 @@ export default {
           colRef: null,
           dataString: "",
           dataList: [],
-          drawer: false,
+          filter: [1,1,1],
           formDialogVisible: false,
-          items: [
-            { name: 'Mens' },
-            { name: 'Womens' },
-            { name: 'Accessories' }
-          ],
-          quantities: [1,2,3,4,5],
           shoppingCart: [],
       };
   },
@@ -144,7 +136,18 @@ export default {
     },
 
     updateFilter(type) {
-      console.log("You're shopping for ", type, " clothing.")
+      if (type == "Mens") {
+        this.filter = [1,0,0]
+      }
+      else if (type == "Womens") {
+        this.filter = [0,1,0]
+      }
+      else if (type == "Accessories") {
+        this.filter = [0,0,1]
+      }
+      else {
+        this.filter = [1,1,1]
+      }
     },
 
     updateQuantity(item, amount) {

@@ -1,6 +1,6 @@
 <template>
   <v-container style="background-color:black" fluid>
-    <v-row no-gutters>
+    <v-row no-gutters justify="center">
       <v-col
         v-for="item in dataList"
         :key="item.id"
@@ -120,7 +120,8 @@
 
     name: "ProductArray",
 
-    props: ['dataList','quantities'],
+    props: ['dataList','filter'],
+    emits: ['update-shopping-cart'],
 
     data() {
       return {
@@ -130,15 +131,6 @@
         size: null,
         windowItem: 0,
       }
-    },
-
-    watch: {
-    },
-
-    mounted() {
-    },
-
-    unmounted() {
     },
 
     methods: {

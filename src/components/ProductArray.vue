@@ -1,6 +1,6 @@
 <template>
   <v-container style="background-color:black" fluid>
-    <v-row no-gutters>
+    <v-row no-gutters justify="center">
       <v-col
         v-for="item in dataList"
         :key="item.id"
@@ -49,10 +49,15 @@
                       />
                     </v-col>
                     <v-col class="mx-2" cols="6">
-                      <v-row class="mb-3" justify="center">
+                      <v-row justify="center">
                         <v-card-title class="mainFont"> 
                           {{ getItemById(dataList, windowItem).product_name }} | {{ getItemById(dataList, windowItem).price }} 
                         </v-card-title>
+                      </v-row>
+                      <v-row class="mb-3" justify="center">
+                        <v-card-text class="mainFontDescription" align="center">
+                          {{ getItemById(dataList, windowItem).description }}
+                        </v-card-text>
                       </v-row>
                       <v-row justify="center">
                         <v-select
@@ -115,7 +120,8 @@
 
     name: "ProductArray",
 
-    props: ['dataList','quantities'],
+    props: ['dataList','filter'],
+    emits: ['update-shopping-cart'],
 
     data() {
       return {
@@ -125,15 +131,6 @@
         size: null,
         windowItem: 0,
       }
-    },
-
-    watch: {
-    },
-
-    mounted() {
-    },
-
-    unmounted() {
     },
 
     methods: {
@@ -179,3 +176,10 @@
     }
   }
 </script>
+
+<style scoped>
+.mainFontDescription{
+  font-family: "Norse";
+  font-size: 20px;
+}
+</style>

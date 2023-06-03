@@ -9,8 +9,6 @@
       <v-img
         :key="currentSlideIndex"
         :src="currentSlide.src"
-        max-width="1024"
-        max-height="576"
         class="crossfade-image"
       ></v-img>
     </transition>

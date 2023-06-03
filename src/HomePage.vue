@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background-color:black">
     <NavigationBar 
       :drawer="drawer"
       :items="items"

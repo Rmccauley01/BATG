@@ -121,7 +121,7 @@
 
     <v-img
       :src="require('@/assets/batg_logo1.png')"
-      class="mt-3"
+      class="mt-1"
       height="200"
       max-width="140"
     />
@@ -141,11 +141,11 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn icon class="mt-1">
+    <v-btn icon>
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 
-    <v-btn @click="$emit('open-cart');" icon class="mt-1" v-if="!cartDrawer">
+    <v-btn @click="$emit('open-cart');" icon v-if="!cartDrawer">
       <v-icon>mdi-cart-outline</v-icon>
     </v-btn>
   </v-app-bar>

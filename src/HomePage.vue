@@ -17,6 +17,7 @@
       :dataList="dataList"
       :filter="filter"
       @update-shopping-cart="updateShoppingCart"
+      @update-filter="updateFilter"
     />
 
     <v-dialog 
@@ -69,7 +70,7 @@ export default {
           colRef: null,
           dataString: "",
           dataList: [],
-          filter: [1,1,1],
+          filter: "None",
           formDialogVisible: false,
           shoppingCart: [],
       };
@@ -136,18 +137,7 @@ export default {
     },
 
     updateFilter(type) {
-      if (type == "Mens") {
-        this.filter = [1,0,0]
-      }
-      else if (type == "Womens") {
-        this.filter = [0,1,0]
-      }
-      else if (type == "Accessories") {
-        this.filter = [0,0,1]
-      }
-      else {
-        this.filter = [1,1,1]
-      }
+      this.filter = type
     },
 
     updateQuantity(item, amount) {

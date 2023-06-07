@@ -14,7 +14,7 @@
         :key="item.name"
       >
         <v-btn
-          @click="$emit('update-filter', item.name);" 
+          @click="drawer=!drawer; $emit('update-filter', item.name);" 
           class="mainFont" 
           color="black"
         >

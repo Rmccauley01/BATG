@@ -34,7 +34,7 @@
 
 .crossfade-enter-active,
 .crossfade-leave-active {
-  transition: opacity 5s;
+  transition: opacity 2s;
 }
 
 .crossfade-enter,

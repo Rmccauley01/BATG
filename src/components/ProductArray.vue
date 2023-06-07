@@ -1,8 +1,23 @@
 <template>
   <v-container style="background-color:black" fluid>
+    <v-card color="black">
+      <v-card-text class="mainFont" v-if="computedFilter != 'None'">
+        {{ computedFilter }}
+      </v-card-text>
+      <v-btn
+        color="black"
+        @click="$emit('update-filter', 'None')"
+        v-if="computedFilter != 'None'"
+        class="mainFont2"
+      >
+        Clear Filters
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-card>
+    
     <v-row no-gutters justify="center">
       <v-col
-        v-for="item in dataList"
+        v-for="item in filteredDataList"
         :key="item.id"
         cols="6"
         lg="2"
@@ -51,17 +66,17 @@
                     <v-col class="mx-2" cols="6">
                       <v-row justify="center">
                         <v-card-title class="mainFont"> 
-                          {{ getItemById(dataList, windowItem).product_name }} | {{ getItemById(dataList, windowItem).price }} 
+                          {{ getItemById(filteredDataList, windowItem).product_name }} | {{ getItemById(filteredDataList, windowItem).price }} 
                         </v-card-title>
                       </v-row>
                       <v-row class="mb-3" justify="center">
                         <v-card-text class="mainFontDescription" align="center">
-                          {{ getItemById(dataList, windowItem).description }}
+                          {{ getItemById(filteredDataList, windowItem).description }}
                         </v-card-text>
                       </v-row>
                       <v-row justify="center">
                         <v-select
-                          :items="getItemById(dataList, windowItem).sizes"
+                          :items="getItemById(filteredDataList, windowItem).sizes"
                           v-model="size"
                           label="Size"
                           solo
@@ -121,12 +136,13 @@
     name: "ProductArray",
 
     props: ['dataList','filter'],
-    emits: ['update-shopping-cart'],
+    emits: ['update-shopping-cart', 'update-filter'],
 
     data() {
       return {
         cartItem: null,
         dialog: false,
+        filteredDataList: this.dataList,
         quantity: 1,
         size: null,
         windowItem: 0,
@@ -173,7 +189,31 @@
         const index = sizes.indexOf(event);
         return inventory[index] === 0;
       },
-    }
+    },
+
+    watch: {
+      filter(newFilter) {
+        if (newFilter == "None") {
+          this.filteredDataList = this.dataList
+        }
+        else {
+          this.filteredDataList = []
+          for (const index in this.dataList) {
+            const item = this.dataList[index];
+            if (item.category.includes(newFilter)) {
+              console.log("Runs")
+              this.filteredDataList.push(item);
+            }
+          }
+        }
+      }
+    },
+
+    computed: {
+      computedFilter() {
+        return this.filter
+      }
+    },
   }
 </script>
 

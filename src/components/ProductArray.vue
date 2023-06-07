@@ -14,6 +14,7 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-card>
+    
     <v-row no-gutters justify="center">
       <v-col
         v-for="item in filteredDataList"

@@ -141,7 +141,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn icon>
+    <v-btn icon class="mt-1">
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
 

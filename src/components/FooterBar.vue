@@ -5,7 +5,7 @@
         <v-container fluid>
           <v-card color="black">
             <v-card-title class="mainFont">
-              Footer Menu
+              Menu
             </v-card-title>
             <v-card-subtitle 
               v-for="(link, i) in links" 

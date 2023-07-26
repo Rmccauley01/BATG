@@ -40,13 +40,14 @@
       </v-card>
     </v-dialog>
 
-    <v-footer style="background-color:black"></v-footer>
+    <FooterBar/>
   </v-app>
 </template>
 
 <script>
 
 //import axios from 'axios';
+import FooterBar from './components/FooterBar.vue'
 import NavigationBar from './components/NavigationBar.vue'
 import SlideShow from './components/SlideShow.vue'
 import ProductArray from './components/ProductArray.vue'
@@ -59,6 +60,7 @@ export default {
   name: "HomePage",
 
   components: {
+    FooterBar,
     NavigationBar,
     SlideShow,
     ProductArray

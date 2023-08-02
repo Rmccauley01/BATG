@@ -30,7 +30,7 @@
           <span class="headline">Form Title</span>
         </v-card-title>
         <v-card-text>
-          <!-- Your form content here -->
+          <StripeCard/>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -47,6 +47,7 @@
 <script>
 
 //import axios from 'axios';
+import StripeCard from './components/StripeCard.vue'
 import FooterBar from './components/FooterBar.vue'
 import NavigationBar from './components/NavigationBar.vue'
 import SlideShow from './components/SlideShow.vue'
@@ -60,6 +61,7 @@ export default {
   name: "HomePage",
 
   components: {
+    StripeCard,
     FooterBar,
     NavigationBar,
     SlideShow,

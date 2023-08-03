@@ -30,7 +30,7 @@
           <span class="headline">Form Title</span>
         </v-card-title>
         <v-card-text>
-          <StripeCard/>
+          <PayPal/>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -47,7 +47,7 @@
 <script>
 
 //import axios from 'axios';
-import StripeCard from './components/StripeCard.vue'
+import PayPal from './components/PayPal.vue'
 import FooterBar from './components/FooterBar.vue'
 import NavigationBar from './components/NavigationBar.vue'
 import SlideShow from './components/SlideShow.vue'
@@ -61,7 +61,7 @@ export default {
   name: "HomePage",
 
   components: {
-    StripeCard,
+    PayPal,
     FooterBar,
     NavigationBar,
     SlideShow,

@@ -30,7 +30,11 @@
           <span class="headline">Form Title</span>
         </v-card-title>
         <v-card-text>
-          <!-- Your form content here -->
+          <stripe-checkout
+            ref="checkoutRef"
+            mode="payment"
+            :pk="publishableKey"
+          />
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -46,7 +50,6 @@
 
 <script>
 
-//import axios from 'axios';
 import FooterBar from './components/FooterBar.vue'
 import NavigationBar from './components/NavigationBar.vue'
 import SlideShow from './components/SlideShow.vue'
@@ -54,6 +57,7 @@ import ProductArray from './components/ProductArray.vue'
 
 import db from '@/fb'
 import { getDocs, collection } from "firebase/firestore"
+import { StripeCheckout } from '@vue-stripe/vue-stripe';
 
 export default {
     
@@ -63,19 +67,28 @@ export default {
     FooterBar,
     NavigationBar,
     SlideShow,
+    StripeCheckout,
     ProductArray
   },
 
   data() {
-      return {
-          cartOpen: false,
-          colRef: null,
-          dataString: "",
-          dataList: [],
-          filter: "None",
-          formDialogVisible: false,
-          shoppingCart: [],
-      };
+    this.publishableKey = process.env.VUE_APP_STRIPE_PUBLISHABLE_KEY;
+    return {
+      cartOpen: false,
+      colRef: null,
+      dataString: "",
+      dataList: [],
+      filter: "None",
+      formDialogVisible: false,
+      shoppingCart: [],
+
+      lineItems: [
+        {
+          price: 'price_1Ndtt8JT94ATznhvS98UR0Da', // The id of the one-time price you created in your Stripe dashboard
+          quantity: 1,
+        },
+      ]
+    };
   },
 
   methods: {
